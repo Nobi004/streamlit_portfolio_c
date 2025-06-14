@@ -1,13 +1,23 @@
-streamlit>=1.28.0
-sqlite3
-pandas>=1.5.0
-Pillow>=9.0.0
-markdown>=3.4.0
-pathlib
-hashlib
-base64
-datetime
-json
-os
-io
-re
+# requirements.txt for Python 3.11
+
+# Web app framework
+streamlit==1.15.0  # Streamlit for building the portfolio web app
+
+# Data handling libraries
+pandas==1.5.3     # Data manipulation and analysis library
+numpy==1.23.5     # Numerical computing library
+
+# Visualization libraries
+matplotlib==3.6.3 # Plotting library
+plotly==5.15.0    # Interactive visualization library
+
+# Image processing
+Pillow==9.4.0     # Image processing library
+
+# HTTP requests (if needed)
+requests==2.28.2  # For making HTTP requests
+
+# Machine Learning / Data Science (if needed)
+scikit-learn==1.1.2
+
+# Add other external dependencies below as needed
