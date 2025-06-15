@@ -1,7 +1,7 @@
 # requirements.txt for Python 3.11
 
 # Web app framework
-streamlit==1.15.0  # Streamlit for building the portfolio web app
+streamlit # Streamlit for building the portfolio web app
 
 # Data handling libraries
 pandas==1.5.3     # Data manipulation and analysis library

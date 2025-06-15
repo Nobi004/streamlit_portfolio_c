@@ -1,3 +1,99 @@
+def show_home_page():
+    st.markdown('<div class="page-content">', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="hero-container pulse-animation">
+        <h1 class="hero-title">AI Engineer Portfolio</h1>
+        <p class="hero-subtitle">Building the Future with Artificial Intelligence</p>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Senior AI Engineer | Machine Learning Specialist | Deep Learning Expert</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown('<div class="animate-item">', unsafe_allow_html=True)
+        st.markdown("### 👋 Welcome to My Portfolio")
+        st.markdown("""
+        I am a passionate AI Engineer with extensive experience in developing cutting-edge machine learning solutions 
+        and deploying scalable AI systems. My expertise spans across various domains including Natural Language Processing, 
+        Computer Vision, and Large Language Models.
+        
+        **Current Focus Areas:**
+        - Large Language Model Development and Fine-tuning
+        - Multimodal AI Systems
+        - MLOps and AI Infrastructure
+        - Responsible AI and Ethics
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="animate-item">', unsafe_allow_html=True)
+        st.markdown("### 🛠️ Technical Skills")
+        skills = [
+            "Python", "TensorFlow", "PyTorch", "Hugging Face", "LangChain",
+            "AWS", "GCP", "Docker", "Kubernetes", "MLflow", "Weights & Biases",
+            "Transformer Models", "BERT", "GPT", "Computer Vision", "NLP",
+            "Deep Learning", "Reinforcement Learning", "MLOps", "Data Engineering"
+        ]
+        
+        skills_html = "".join([f'<span class="skill-tag ripple">{skill}</span>' for skill in skills])
+        st.markdown(f'<div style="margin-top: 1rem;">{skills_html}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="animate-item">', unsafe_allow_html=True)
+        st.markdown("### 📈 Professional Experience")
+        st.markdown("""
+        **Senior AI Engineer** | *Leading Tech Company* | 2022 - Present
+        - Led development of large-scale language models serving millions of users
+        - Implemented MLOps pipelines reducing model deployment time by 70%
+        - Collaborated with cross-functional teams to deliver AI-powered products
+        
+        **Machine Learning Engineer** | *AI Startup* | 2020 - 2022
+        - Built and deployed computer vision models for autonomous systems
+        - Optimized model performance achieving 95% accuracy on production data
+        - Mentored junior engineers and established ML best practices
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="animate-item">', unsafe_allow_html=True)
+        st.markdown("### 📊 Quick Stats")
+        
+        # Enhanced metrics with click animations
+        st.markdown("""
+        <div class="metric-card ripple" onclick="this.classList.add('pulse-animation')">
+            <h3 style="margin: 0; font-size: 2rem;">5+</h3>
+            <p style="margin: 0.5rem 0 0 0;">Years of Experience</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="metric-card ripple" onclick="this.classList.add('pulse-animation')">
+            <h3 style="margin: 0; font-size: 2rem;">50+</h3>
+            <p style="margin: 0.5rem 0 0 0;">AI Projects Completed</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="metric-card ripple" onclick="this.classList.add('pulse-animation')">
+            <h3 style="margin: 0; font-size: 2rem;">25+</h3>
+            <p style="margin: 0.5rem 0 0 0;">Models Deployed</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="metric-card ripple" onclick="this.classList.add('pulse-animation')">
+            <h3 style="margin: 0; font-size: 2rem;">12</h3>
+            <p style="margin: 0.5rem 0 0 0;">Publications</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="animate-item">', unsafe_allow_html=True)
+        st.markdown("### 📄 Download My CV")
+        cv_link = get_base64_download_link("static/cv.pdf", "AI_Engineer_CV.pdf")
+        st.markdown(cv_link, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
 import streamlit as st
 import json
 import os
@@ -59,20 +155,46 @@ def load_css():
         animation: slideInRight 1s ease-out;
     }
     
-    /* Card styling */
+    /* Enhanced card styling with click animations */
     .project-card {
         background: white;
         border-radius: 15px;
         padding: 2rem;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         margin-bottom: 2rem;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid #e2e8f0;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .project-card:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+        transform: scale(0);
+        transition: transform 0.6s ease-out;
+        z-index: 1;
     }
     
     .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        border-color: #667eea;
+    }
+    
+    .project-card:hover:before {
+        transform: scale(1);
+    }
+    
+    .project-card:active {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
     
     .blog-card {
@@ -81,16 +203,40 @@ def load_css():
         padding: 1.5rem;
         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         margin-bottom: 1.5rem;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border-left: 4px solid #667eea;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .blog-card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+        transition: left 0.5s ease;
     }
     
     .blog-card:hover {
-        transform: translateX(5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        transform: translateX(8px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        border-left-color: #5a67d8;
     }
     
-    /* Button styling */
+    .blog-card:hover:before {
+        left: 100%;
+    }
+    
+    .blog-card:active {
+        transform: translateX(4px) scale(1.01);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    /* Button styling with enhanced animations */
     .download-btn {
         background: linear-gradient(45deg, #667eea, #764ba2);
         color: white;
@@ -99,14 +245,78 @@ def load_css():
         text-decoration: none;
         font-weight: 600;
         display: inline-block;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: none;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .download-btn:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
     }
     
     .download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .download-btn:hover:before {
+        left: 100%;
+    }
+    
+    .download-btn:active {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Enhanced Streamlit button animations */
+    .stButton > button {
+        background: linear-gradient(45deg, #667eea, #764ba2) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px) scale(1.02) !important;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+        background: linear-gradient(45deg, #5a67d8, #6b46c1) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0px) scale(0.98) !important;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2) !important;
+    }
+    
+    .stButton > button:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: width 0.6s, height 0.6s;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+    }
+    
+    .stButton > button:active:before {
+        width: 300px;
+        height: 300px;
     }
     
     /* Animations */
@@ -163,7 +373,7 @@ def load_css():
         margin-top: 2rem;
     }
     
-    /* Navigation */
+    /* Enhanced navigation animations */
     .nav-link {
         padding: 0.5rem 1rem;
         margin: 0 0.25rem;
@@ -171,19 +381,350 @@ def load_css():
         text-decoration: none;
         color: #4a5568;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-link:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+        transition: left 0.4s ease;
     }
     
     .nav-link:hover {
         background: #667eea;
         color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .nav-link:hover:before {
+        left: 100%;
+    }
+    
+    .nav-link:active {
+        transform: translateY(0px) scale(0.98);
     }
     
     .nav-link.active {
         background: #667eea;
         color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Enhanced input field animations */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
+    .stSelectbox > div > div > select {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border: 2px solid #e2e8f0 !important;
+        border-radius: 8px !important;
+    }
+    
+    .stTextInput > div > div > input:focus,
+    .stTextArea > div > div > textarea:focus,
+    .stSelectbox > div > div > select:focus {
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        transform: scale(1.02) !important;
+    }
+    
+    /* Click ripple effect */
+    .ripple {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .ripple:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .ripple:active:before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    /* Page transition animations */
+    .page-content {
+        animation: pageSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @keyframes pageSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Staggered animation for lists */
+    .animate-item {
+        animation: itemFadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    .animate-item:nth-child(1) { animation-delay: 0.1s; }
+    .animate-item:nth-child(2) { animation-delay: 0.2s; }
+    .animate-item:nth-child(3) { animation-delay: 0.3s; }
+    .animate-item:nth-child(4) { animation-delay: 0.4s; }
+    .animate-item:nth-child(5) { animation-delay: 0.5s; }
+    
+    @keyframes itemFadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Loading animation */
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Pulse animation for important elements */
+    .pulse-animation {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: .8;
+            transform: scale(1.05);
+        }
+    }
+    
+    /* Metric card animations */
+    .metric-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .metric-card:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        transform: scale(0);
+        transition: transform 0.5s ease-out;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+    
+    .metric-card:hover:before {
+        transform: scale(1);
+    }
+    
+    .metric-card:active {
+        transform: translateY(-2px) scale(1.02);
     }
     </style>
+    
+    <script>
+    // Enhanced animation and interaction JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add ripple effect to all buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = diameter + 'px';
+            circle.style.left = event.clientX - button.offsetLeft - radius + 'px';
+            circle.style.top = event.clientY - button.offsetTop - radius + 'px';
+            circle.classList.add('ripple-effect');
+            
+            const ripple = button.getElementsByClassName('ripple-effect')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+            
+            setTimeout(() => {
+                circle.remove();
+            }, 600);
+        }
+        
+        // Add click animations to all interactive elements
+        function addClickAnimations() {
+            // Add ripple to buttons
+            const buttons = document.querySelectorAll('button, .download-btn, .nav-link');
+            buttons.forEach(button => {
+                button.addEventListener('click', createRipple);
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+            });
+            
+            // Add bounce effect to cards
+            const cards = document.querySelectorAll('.project-card, .blog-card, .metric-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.animation = 'none';
+                    this.offsetHeight; // Trigger reflow
+                    this.style.animation = 'cardBounce 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+            });
+            
+            // Add stagger animation to lists
+            const listItems = document.querySelectorAll('.project-card, .blog-card');
+            listItems.forEach((item, index) => {
+                item.classList.add('animate-item');
+                item.style.animationDelay = (index * 0.1) + 's';
+            });
+            
+            // Add hover sound effect simulation (visual feedback)
+            const interactiveElements = document.querySelectorAll('button, .project-card, .blog-card, input, textarea, select');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform || '';
+                    if (!this.style.transform.includes('scale')) {
+                        this.style.transform += ' scale(1.02)';
+                    }
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = this.style.transform.replace(' scale(1.02)', '');
+                });
+            });
+        }
+        
+        // Smooth scroll effect for navigation
+        function addSmoothScrolling() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Add loading animation
+                    const spinner = document.createElement('span');
+                    spinner.className = 'loading-spinner';
+                    spinner.style.marginLeft = '10px';
+                    this.appendChild(spinner);
+                    
+                    setTimeout(() => {
+                        if (spinner.parentNode) {
+                            spinner.remove();
+                        }
+                    }, 500);
+                });
+            });
+        }
+        
+        // Add floating animation to hero elements
+        function addFloatingAnimation() {
+            const heroElements = document.querySelectorAll('.hero-title, .hero-subtitle');
+            heroElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.animation = 'float 2s ease-in-out infinite';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.animation = '';
+                });
+            });
+        }
+        
+        // Initialize all animations
+        addClickAnimations();
+        addSmoothScrolling();
+        addFloatingAnimation();
+        
+        // Re-run animations when content changes (for Streamlit rerun)
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    setTimeout(addClickAnimations, 100);
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+    
+    // CSS for JavaScript-triggered animations
+    const style = document.createElement('style');
+    style.textContent = `
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes cardBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Enhanced button glow effect */
+        button:focus, .download-btn:focus {
+            outline: none !important;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6) !important;
+        }
+    `;
+    document.head.appendChild(style);
+    </script>
     """, unsafe_allow_html=True)
 
 # Database initialization
